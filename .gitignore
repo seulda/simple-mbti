@@ -12,5 +12,7 @@ web-build/
 
 firebaseConfig.js
 
+*.log
+
 # macOS
 .DS_Store
