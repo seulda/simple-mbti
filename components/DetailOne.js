@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 export default function DetailOne({content}) {
     // console.disableYellowBox = true;
@@ -10,18 +10,6 @@ export default function DetailOne({content}) {
             <Text style={styles.boardSub} numberOfLines={1}>{content.mbti}</Text>
         </TouchableOpacity>
     );
-
-    // return i % 2 == 0 ? (
-    //     <TouchableOpacity style={styles.oneBoard} key={i}>
-    //         <Text style={styles.boardTitle} numberOfLines={2}>{content.title}</Text>
-    //         <Text style={styles.boardSub} numberOfLines={4}>{content.sub}</Text>
-    //     </TouchableOpacity>
-    // ) : (
-    //     <TouchableOpacity style={styles.oneBoard02} key={i}>
-    //         <Text style={styles.boardTitle} numberOfLines={2}>{content.title}</Text>
-    //         <Text style={styles.boardSub} numberOfLines={4}>{content.sub}</Text>
-    //     </TouchableOpacity>
-    // )
 
 }
 

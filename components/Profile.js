@@ -1,76 +1,92 @@
-import React, { useState, Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import React, { useState, useEffect, Component } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 
-export default function Profile() {
+import { firebase_db } from "../firebaseConfig.js"
+
+
+export default function Profile({content}) {
     // console.disableYellowBox = true;
 
-    const oneAlert = () => {
-        Alert.alert('Button Click', 'Button Content...');
-        console.log("Profile Button Pressed");
+    let mbtiUser = [];
+
+    const [mbti, setMbti] = useState([])
+
+    useEffect(() => {
+
+        firebase_db.ref('mbti').once('value').then((snapshot) => {
+            console.log("main firebase data connect success")
+            let mbtiDB = snapshot.val();
+            setMbti(mbtiDB)
+        });
+
+    }, [])
+
+    const showUser = () => {
+
+        console.log("Profile Button Pressed : " + content.type);
+
+        mbti.map((mbtiData, i) => {
+            if ((mbtiData.mbti) == content.type) {
+                mbtiUser.push(mbtiData.name);
+            }
+        })
+        
+        if (mbtiUser.length == 0) {
+            mbtiUser.push('없음');
+        }
+
+        console.log("@@@ find complete. user list : " + mbtiUser)
+        Alert.alert(content.type + ' - ' + content.title, mbtiUser.toString());
+
     }
 
+
     return (
-        <View style={styles.middleContainer} horizontal indicatorStyle={"white"}>
 
-            <TouchableOpacity style={styles.middleButton} onPress={oneAlert}>
-                <View style={styles.profileCard}>
-                    <Text style={styles.profileCardName}>이름이올시다</Text>
-                    <Text style={styles.profileCardSub}>정보이올시다</Text>
-                </View>
-                <Text style={styles.middleButtonText}>내용?</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.middleButton} onPress={oneAlert}>
+        <TouchableOpacity style={styles.middleButton} onPress={showUser}>
             <View style={styles.profileCard}>
-                    <Text style={styles.profileCardName}>이름이올시다</Text>
-                    <Text style={styles.profileCardSub}>정보이올시다</Text>
-                </View>
-                <Text style={styles.middleButtonText}>내용?</Text>
-            </TouchableOpacity>
+                <Text style={styles.profileCardName}>{content.type}</Text>
+                <Text style={styles.profileCardSub}>{content.title}</Text>
+            </View>
+            <Text style={styles.middleButtonText}>{content.content}</Text>
+        </TouchableOpacity>
 
-        </View>
     );
 }
 
 
 const styles = StyleSheet.create({
     middleContainer: {
-        flex: 1,
-        flexDirection: "row",
+        flexWrap: "wrap",
+        flexDirection: "row", 
         margin: 10,
         padding: 5,
         marginLeft: 10,
-        height: '100%',
-        alignSelf: 'center'
     },
     middleButton: {
         width: 160,
-        height: 180,
+        // height: 180,
         borderRadius: 10,
         backgroundColor: "#ffd6aa",
         padding: 20,
-        margin: 6
+        margin: 6,
     },
     middleButtonText: {
-        color: "#fff",
+        color: "#7f7f7f",
         fontWeight: "700",
-        textAlign: "center"
+        textAlign: "center",
     },
     profileCard: {
-        flex: 3,
-        margin: 5,
-        padding: 5,
-        paddingLeft: 10,
-        paddingRight: 10,
-        justifyContent: 'space-around'
+        margin: 10,
+        marginBottom: 15,
       },
     profileCardName: {
-        backgroundColor: "#e5e5e5",
         fontSize: 20,
-        fontWeight: "500"
+        fontWeight: "500",
+        textAlign: "center",
     },
     profileCardSub: {
-        backgroundColor: "#e5e5e5",
         fontSize: 15,
+        textAlign: "center",
     },
 });

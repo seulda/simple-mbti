@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 import DetailOne from '../components/DetailOne.js';
@@ -28,8 +28,8 @@ export default function DetailView({ navigation }) {
 
 
     const topCategory = (cate) => {
-        setCateState(state.filter((d) => {
-            return d.fb == cate
+        setCateState(state.filter((teamData) => {
+            return teamData.fb == cate
         }))
     }
     const allCategory = () => {
@@ -83,14 +83,8 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     containerSemi: {
-        // width: '95%',
-        // height: '97%',
         backgroundColor: "#fff",
         padding: 8,
-        // marginTop: 10,
-        // borderRadius: 20,
-        //justifyContent: "center",
-        // alignItems: "center"
     },
 
     topContainer: {
@@ -103,7 +97,6 @@ const styles = StyleSheet.create({
         borderBottomColor: 'gray',
         borderBottomWidth: 2,
         backgroundColor: "#e5e5e5",
-
     },
     topContainerButton: {
         backgroundColor: "#fff",
@@ -122,8 +115,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         padding: 8,
         marginTop: 5,
-        // justifyContent: "center",
-        // alignItems: "center"
     },
 
     contentArea: {
@@ -138,12 +129,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#b5b5b5",
         backgroundColor: "#f0f0f0",
-    },
-    testButton2: {
-        margin: 20,
-        borderRadius: 10,
-        backgroundColor: "#ffd6aa",
-        padding: 3,
     },
     testButtonText: {
         margin: 10,
