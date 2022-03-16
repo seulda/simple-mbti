@@ -25,6 +25,8 @@ export default function Profile({content}) {
 
         console.log("Profile Button Pressed : " + content.type);
 
+        mbtiUser = [];
+
         mbti.map((mbtiData, i) => {
             if ((mbtiData.mbti) == content.type) {
                 mbtiUser.push(mbtiData.name);
